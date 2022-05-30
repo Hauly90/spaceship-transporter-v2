@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add ship</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/js/shipScript.js"></script>
+</head>
+<body>
+
+<h1>Create new ship</h1>
+
+<form method="post" action="/ships">
+
+    <div class="card mx-auto text-center" style="width: 300px; padding: 10px">
+        <div>
+            <label for="shipName" >Ship name</label>
+            <input type="text" class="form-control" name="shipName" id="shipName">
+        </div>
+
+        <div>
+            <label for="shipMaximumWarp">Maximum warp</label>
+            <input type="text" class="form-control" name="shipMaximumWarp" id="shipMaximumWarp">
+        </div>
+
+        <div>
+            <label for="shipPlanet">Starting planet</label>
+            <select name="shipPlanet" id="shipPlanet" class="form-select" aria-label="Default select example">
+                <!--        <option selected th:text="${listOfPlanets.get(0).getName()}"></option>-->
+                <option name="planetType" th:each="i : ${listOfPlanets}" th:text="${i.getName()}"></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="container my-3 bg-light">
+        <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-primary" onclick="createShipAlert()">Create the ship!</button>
+            <button type="button" class="btn btn-warning" >Cancel</button>
+        </div>
+    </div>
+
+</form>
+</body>
+</html>

@@ -61,4 +61,11 @@ public class ShipController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/addNewShip")
+    public String getAddShipPage(Model model) {
+//        model.addAttribute("listOfShips", shipService.getAllShips());
+        model.addAttribute("listOfPlanets", shipService.getAllPlanets());
+        return "addShip";
+    }
 }
