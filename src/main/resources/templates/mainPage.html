@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spaceship Transport manager</title>
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+<h1>Spaceship Transport manager</h1>
+
+<table>
+    <form method="post">
+        <tr>
+            <th>#</th>
+            <th>Ship name</th>
+            <th>Maximum warp speed</th>
+            <th>Current location</th>
+            <th>Docking action</th>
+        </tr>
+
+        <tr th:each="ship : ${listOfShips}">
+            <td th:text="${ship.getId()}"></td>
+            <td th:text="${ship.getName()}"></td>
+            <td th:text="${ship.getMaxSpeed()}"></td>
+            <td th:text="${ship.getPlanet().getName()}"></td>
+            <td th:if="${ship.isDocked() == true}"><a th:href="'/docking?id=' + ${ship.getId()}">Dock</a></td>
+            <td th:if="${ship.isDocked() == false}"><a th:href="'/docking?id=' + ${ship.getId()}">Undock</a></td>
+        </tr>
+    </form>
+</table>
+
+<h1>Send ship</h1>
+<p>Ships can only be sent if they are undocked. If you aren't seeing your ship in the select below, make sure to undock
+    it above.</p>
+
+<form method="post" th:action="'/ships/move'">
+    <label for="shipType">Which ship should be sent...</label>
+    <select name="shipType" id="shipType">
+        <option name="shipType" th:each="i : ${listOfShips}" th:text="${i.getName()}" th:value="${i.getName()}"></option>
+    </select>
+
+    <label for="planetType">...to which planet</label>
+    <select name="planetType" id="planetType">
+        <option name="planetType" th:each="i : ${listOfPlanets}" th:text="${i.getName()}"
+                th:value="${i.getName()}"></option>
+    </select>
+    <button type="submit" class="btn btn-primary">Send the ship!</button>
+</form>
+
+<h1>Create new ship</h1>
+
+<form method="post" action="/ships">
+    <label for="shipName">Ship name</label><br>
+    <input type="text" name="shipName" id="shipName"><br>
+
+    <label for="shipMaximumWarp">Maximum warp</label><br>
+    <input type="text" name="shipMaximumWarp" id="shipMaximumWarp"><br>
+
+    <label for="shipPlanet">Starting planet</label><br>
+    <select name="shipPlanet" id="shipPlanet">
+        <option name="planetType" th:each="i : ${listOfPlanets}" th:text="${i.getName()}"
+                th:value="${i.getName()}"></option>
+    </select><br><br>
+    <button type="submit" class="btn btn-primary">Create the ship!</button>
+</form>
+
+</body>
+</html>
