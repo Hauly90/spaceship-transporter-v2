@@ -36,7 +36,6 @@ public class ShipController {
 
     @PostMapping("/ships")
     public String postCreateNewShip(@RequestParam(required = false) String shipName, @RequestParam(required = false) String shipMaximumWarp, @RequestParam(required = false) String shipPlanet) {
-
         Ship newShip = new Ship(shipName, Double.parseDouble(shipMaximumWarp), false, shipService.getShipByName(shipPlanet));
         shipService.addNewShip(newShip);
 
@@ -64,7 +63,6 @@ public class ShipController {
 
     @GetMapping("/addNewShip")
     public String getAddShipPage(Model model) {
-//        model.addAttribute("listOfShips", shipService.getAllShips());
         model.addAttribute("listOfPlanets", shipService.getAllPlanets());
         return "addShip";
     }
