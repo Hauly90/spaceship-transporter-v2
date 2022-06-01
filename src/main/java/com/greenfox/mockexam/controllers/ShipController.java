@@ -8,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 public class ShipController {
 
@@ -38,13 +36,6 @@ public class ShipController {
     public String postCreateNewShip(@RequestParam(required = false) String shipName, @RequestParam(required = false) String shipMaximumWarp, @RequestParam(required = false) String shipPlanet) {
         Ship newShip = new Ship(shipName, Double.parseDouble(shipMaximumWarp), false, shipService.getShipByName(shipPlanet));
         shipService.addNewShip(newShip);
-
-        return "redirect:/";
-    }
-
-    @DeleteMapping("/planets/{id}")
-    public String deletePlanet(@PathVariable long id) {
-        shipService.deleteSomePlanet(id);
 
         return "redirect:/";
     }
