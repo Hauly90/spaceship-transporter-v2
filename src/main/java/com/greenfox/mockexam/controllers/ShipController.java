@@ -28,7 +28,6 @@ public class ShipController {
     @PostMapping("/ships/move")
     public String postMovingShipAround(@RequestParam(required = false) String shipType, @RequestParam(required = false) String planetType) {
         shipService.moveShip(shipType, planetType);
-
         return "redirect:/";
     }
 
@@ -36,7 +35,6 @@ public class ShipController {
     public String postCreateNewShip(@RequestParam(required = false) String shipName, @RequestParam(required = false) String shipMaximumWarp, @RequestParam(required = false) String shipPlanet) {
         Ship newShip = new Ship(shipName, Double.parseDouble(shipMaximumWarp), false, shipService.getShipByName(shipPlanet));
         shipService.addNewShip(newShip);
-
         return "redirect:/";
     }
 
@@ -48,13 +46,26 @@ public class ShipController {
     @GetMapping("/docking")
     public String postDockOrUndock(@RequestParam long id) {
         shipService.changeDockingStatus(id);
-
         return "redirect:/";
     }
 
     @GetMapping("/addNewShip")
-    public String getAddShipPage(Model model) {
+    public String addShipPage(Model model) {
         model.addAttribute("listOfPlanets", shipService.getAllPlanets());
         return "addShip";
+    }
+
+    @DeleteMapping("/ships/{id}")
+    public String deleteShip(@PathVariable short id) {
+        System.out.println("The id of the ship is: " + id);
+        shipService.deleteSomeShip(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/updateShip")
+    public String updateShipPage(Model model) {
+        model.addAttribute("listOfShips", shipService.getAllShips());
+        model.addAttribute("listOfPlanets", shipService.getAllPlanets());
+        return "updateShip";
     }
 }

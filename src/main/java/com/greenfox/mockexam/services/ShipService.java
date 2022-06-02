@@ -90,6 +90,10 @@ public class ShipService {
         planetRepository.deleteById(id);
     }
 
+    public void deleteSomeShip(long id) {
+        shipRepository.deleteById(id);
+    }
+
     public List<Ship> getWarpSpeed(Double warpSpeed) {
 
         List<Ship> shipsWithSpeed = shipRepository.findAll().stream().filter(ship -> ship.getMaxSpeed() >= warpSpeed)
