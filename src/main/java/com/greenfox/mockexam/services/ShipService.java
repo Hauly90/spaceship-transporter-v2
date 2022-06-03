@@ -102,6 +102,14 @@ public class ShipService {
         return shipsWithSpeed;
     }
 
+    public List<Ship> updateShipInfo(long id) {
+        System.out.println("Id is: " + id);
+        List<Ship> updatedShip = shipRepository.findAll().stream().filter(ship -> ship.getId() == id).collect(Collectors.toList());
+        System.out.println(updatedShip);
+
+        return updatedShip;
+    }
+
     public void changeDockingStatus(long id) {
         Optional<Ship> shipForChanges = shipRepository.findById(id);
 

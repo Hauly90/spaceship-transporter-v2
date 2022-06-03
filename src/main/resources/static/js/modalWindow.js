@@ -9,12 +9,15 @@ openModalButtons.forEach(button => {
   })
 })
 
+if (overlay) {
 overlay.addEventListener('click', () => {
   const modals = document.querySelectorAll('.modal.active')
   modals.forEach(modal => {
     closeModal(modal)
   })
 })
+}
+
 
 closeModalButtons.forEach(button => {
   button.addEventListener('click', () => {
@@ -46,11 +49,25 @@ $(document).ready(function(){
         var col2 = currentRow.find("td:eq(1)").html();
         var col3 = currentRow.find("td:eq(2)").html();
         var col4 = currentRow.find("td:eq(3)").html();
-//        $('#div1').before('<div style="background-color:yellow"> New div </div>')
-//        var setValue= document.getElementById("shipName").value = shipName;
-        console.log(col4);
-        var setValue = document.getElementById("shipName").value = col2
-        var setValue2 = document.getElementById("shipMaximumWarp").value = col3;
-        var setValue3 = document.getElementById("planetType").innerText = col4;
+
+        console.log(col1);
+        var setValue = document.getElementById("shipId").value = col1
+        var setValue2 = document.getElementById("shipName").value = col2
+        var setValue3 = document.getElementById("shipMaximumWarp").value = col3;
+        var setValue4 = document.getElementById("planetType").innerText = col4;
+
+        console.log(setValue);
     })
+
+    $(".updateShipBtn").on('click', function(){
+//            $.ajax({
+//                type: 'POST',
+//                url: '/testEndpoint',
+//                data: {
+//                    idOfTheShip: id
+//                }
+//            });
+
+        })
+
 })

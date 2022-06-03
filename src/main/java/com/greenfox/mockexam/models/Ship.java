@@ -31,4 +31,9 @@ public class Ship {
     public Ship() {
 
     }
+
+    @Override
+    public String toString() {
+        return "Name of the ship: " + name + ", id: " + String.valueOf(id);
+    }
 }
