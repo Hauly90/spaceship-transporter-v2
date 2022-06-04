@@ -7,7 +7,6 @@ import com.greenfox.mockexam.repositories.ShipRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -82,12 +81,15 @@ public class ShipService {
         List<Ship> shipsWithDeletedPlanet = shipRepository.findAll().stream().filter(ship -> ship.getPlanet().getId() == id).collect(Collectors.toList());
         List<Ship> shipWithLivingPlanet = shipRepository.findAll().stream().filter(ship -> ship.getPlanet().getId() != id).findFirst().stream().collect(Collectors.toList());
 
-        for (Ship oneShip : shipsWithDeletedPlanet) {
-//            oneShip.setPlanet(planetRepository.findById(1L).get());
-            oneShip.setPlanet(shipWithLivingPlanet.get(0).getPlanet());
-        }
+        List<Planet> numberOfPlanets = planetRepository.findAll();
 
-        planetRepository.deleteById(id);
+        if (numberOfPlanets.size() > 1) {
+            for (Ship oneShip : shipsWithDeletedPlanet) {
+//            oneShip.setPlanet(planetRepository.findById(1L).get());
+                oneShip.setPlanet(shipWithLivingPlanet.get(0).getPlanet());
+            }
+            planetRepository.deleteById(id);
+        }
     }
 
     public void deleteSomeShip(long id) {
@@ -95,19 +97,21 @@ public class ShipService {
     }
 
     public List<Ship> getWarpSpeed(Double warpSpeed) {
-
         List<Ship> shipsWithSpeed = shipRepository.findAll().stream().filter(ship -> ship.getMaxSpeed() >= warpSpeed)
                 .sorted(Comparator.comparing(Ship::getMaxSpeed).reversed()).collect(Collectors.toList());
 
         return shipsWithSpeed;
     }
 
-    public List<Ship> updateShipInfo(long id) {
-        System.out.println("Id is: " + id);
-        List<Ship> updatedShip = shipRepository.findAll().stream().filter(ship -> ship.getId() == id).collect(Collectors.toList());
-        System.out.println(updatedShip);
+    public void updateShipInfo(long id, String shipName, double shipMaximumWarp, String shipPlanet) {
+        List<Planet> updatedPlanet = planetRepository.findAll().stream().filter(planet -> planet.getName().equals(shipPlanet)).collect(Collectors.toList());
+//        List<Ship> updatedShip = shipRepository.findAll().stream().filter(ship -> ship.getId() == id).collect(Collectors.toList());
+        List<Ship> updatedShip = shipRepository.getShipById(id);
 
-        return updatedShip;
+        updatedShip.get(0).setName(shipName);
+        updatedShip.get(0).setMaxSpeed(shipMaximumWarp);
+        updatedShip.get(0).setPlanet(updatedPlanet.get(0));
+        shipRepository.save(updatedShip.get(0));
     }
 
     public void changeDockingStatus(long id) {
@@ -122,6 +126,5 @@ public class ShipService {
                 shipRepository.save(shipForChanges.get());
             }
         }
-
     }
 }

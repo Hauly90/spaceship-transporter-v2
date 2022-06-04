@@ -18,7 +18,6 @@ overlay.addEventListener('click', () => {
 })
 }
 
-
 closeModalButtons.forEach(button => {
   button.addEventListener('click', () => {
     const modal = button.closest('.xmodal')
@@ -50,24 +49,9 @@ $(document).ready(function(){
         var col3 = currentRow.find("td:eq(2)").html();
         var col4 = currentRow.find("td:eq(3)").html();
 
-        console.log(col1);
         var setValue = document.getElementById("shipId").value = col1
         var setValue2 = document.getElementById("shipName").value = col2
         var setValue3 = document.getElementById("shipMaximumWarp").value = col3;
         var setValue4 = document.getElementById("planetType").innerText = col4;
-
-        console.log(setValue);
     })
-
-    $(".updateShipBtn").on('click', function(){
-//            $.ajax({
-//                type: 'POST',
-//                url: '/testEndpoint',
-//                data: {
-//                    idOfTheShip: id
-//                }
-//            });
-
-        })
-
 })

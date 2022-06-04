@@ -58,7 +58,7 @@ public class ShipController {
     @DeleteMapping("/ships/{id}")
     public String deleteShip(@PathVariable short id) {
         shipService.deleteSomeShip(id);
-        return "redirect:/";
+        return "redirect:/updateShip";
     }
 
     @GetMapping("/updateShip")
@@ -68,18 +68,14 @@ public class ShipController {
         return "updateShip";
     }
 
-    @PostMapping("/updateShip/{id}")
-    public String postUpdateShip(@PathVariable short id) {
-        shipService.updateShipInfo(id);
-        return "updateShip";
+    @PostMapping("/updateShip")
+    public String postUpdateShip(@RequestParam short shipId, @RequestParam String shipName, @RequestParam double shipMaximumWarp, @RequestParam String shipPlanet) {
+        shipService.updateShipInfo(shipId, shipName, shipMaximumWarp, shipPlanet);
+        return "redirect:/updateShip";
     }
 
-    @PostMapping("/testEndpoint")
-    public String testEndpoint(@RequestParam String idOfTheShip) {
-        System.out.println(idOfTheShip);
-        return "redirect:/";
+    @GetMapping("/aboutApp")
+    public String getAboutApp() {
+        return "aboutApp";
     }
-
-
-
 }

@@ -17,7 +17,7 @@ public class PlanetController {
     }
 
     @DeleteMapping("/planets/{id}")
-    public String deletePlanet(@PathVariable short id) {
+    public String deletePlanet(@PathVariable long id) {
         shipService.deleteSomePlanet(id);
 
         return "redirect:/";
