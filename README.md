@@ -1,1 +1,13 @@
-# spaceship-transporter-v2
+
+# Spaceship Transporter
+
+Application that helps to keep track of ships travelling between planets.
+
+
+## Tech Stack
+
+**Client:** HTML, CSS, JavaScript, Bootstrap, JQuery
+
+**Server:** Java, Spring Boot, Thymeleaf
+
+**Others:** MySQL, Gradle
